@@ -4,7 +4,7 @@ import { Server, Socket as SocketIOSocket } from "socket.io";
 import { Node } from "../src/factory";
 import { NodeTypes, CrashType } from "../src/types";
 
-const server = new Server();
+const server = new Server({ cors: { origin: "*" } });
 
 const sleep = (time: number) =>
   new Promise((res) => setTimeout(res, time * 1000));
@@ -32,26 +32,33 @@ server.on("connection", async (socket) => {
   story = story.info("starting the app");
 
   await sleep(0.4);
-  
-  const mainFlow = story.flow("starting the main flow");
-  
-  await sleep(0.7);
-  
-  const buttonDecision = mainFlow.decision("what button should I press");
-  
-  sleep(0.7).then(async () => {
-	  const redButton = buttonDecision.info("the BIG red button was chosen!");
-	  await sleep(1.5);
-	  redButton.expect("the button must be red and big", "{ 'color': 'red', big: true }", "{ 'color': 'red', big: true }", true);
-	});
-	sleep(1.7).then(async () => {
-		const greenButton = buttonDecision.info("the green button was chosen!");
-		await sleep(2.5);
-		const greenButtonFlow = greenButton.flow("starting the green button flow");
-		await sleep(2.5);
-		greenButtonFlow.throw(CrashType.CodeCrash, new Error("the green button flow is buggy"));
-  });
 
+  const mainFlow = story.flow("starting the main flow");
+
+  await sleep(0.7);
+
+  const buttonDecision = mainFlow.decision("what button should I press");
+
+  sleep(0.7).then(async () => {
+    const redButton = buttonDecision.info("the BIG red button was chosen!");
+    await sleep(1.5);
+    redButton.expect(
+      "the button must be red and big",
+      "{ 'color': 'red', big: true }",
+      "{ 'color': 'red', big: true }",
+      true
+    );
+  });
+  sleep(1.7).then(async () => {
+    const greenButton = buttonDecision.info("the green button was chosen!");
+    await sleep(2.5);
+    const greenButtonFlow = greenButton.flow("starting the green button flow");
+    await sleep(2.5);
+    greenButtonFlow.throw(
+      CrashType.CodeCrash,
+      new Error("the green button flow is buggy")
+    );
+  });
 });
 
 server.listen(5555);

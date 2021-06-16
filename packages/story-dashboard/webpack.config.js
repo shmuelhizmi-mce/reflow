@@ -1,11 +1,12 @@
 const path = require("path");
 
 module.exports = {
-	entry: "./standalone/index.ts",
+	entry: "./standalone/index.tsx",
 	output: {
 		filename: "bundle.js",
 		path: path.resolve(__dirname, "dist"),
 	},
+	mode: "development",
 	devtool: "source-map",
 	resolve: {
 		extensions: [".ts", ".tsx", ".js", ".json"],
@@ -16,7 +17,7 @@ module.exports = {
 	},
 	module: {
 		rules: [
-			{ test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+			{ test: /\.tsx?$/, loader: "ts-loader" },
 			{ enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
 		],
 	},

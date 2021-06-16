@@ -48,7 +48,7 @@ export function createReadTransport<ViewsMap extends ViewsMapInterface = any>(
   const getNodes = () => Array.from(nodes.values());
   on("updateNodeTree", (newNodes) => {
     newNodes.forEach((node) => {
-      nodes[node.id] = node;
+      nodes.set(node.id, node);
     });
     nodeUpdateListeners.forEach((listener) => listener(getNodes()));
   });
