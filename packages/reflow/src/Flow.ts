@@ -87,7 +87,7 @@ export class FlowProxy<ViewsMap extends ViewsMapInterface, Input extends any = v
 	public state: State;
 	public input: Input;
 	constructor(executor: (resolve: () => void, reject: () => void) => FlowProxy<ViewsMap, Input, Output, State, Notifications, Events, ExternalEvents> | null, flowProc: Flow<ViewsMap, Input, Output, State>, toolkit: FlowToolkit<ViewsMap>, input?: Input, state?: State, options?: FlowOptions) {
-		super(executor ? executor : (resolve, reject) => {
+		super(executor ? executor : (resolve: any, reject: any) => {
 			tmpResolve = resolve;
 			tmpReject = reject;
 		});

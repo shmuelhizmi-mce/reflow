@@ -23,8 +23,8 @@ export class ViewProxy<ViewsMap extends ViewsMapInterface, T extends ViewsMap[ke
 	private onUpdate: ViewOnUpdateCallback<ViewsMap, T> = (input) => { };
 	private onRemove: ViewOnRemoveCallback = () => { };
 
-	constructor(executor: (resolve: () => void, reject: () => void) => ViewProxy<ViewsMap, T> | null, onUpdate: ViewOnUpdateCallback<ViewsMap, T>, onRemove: ViewOnRemoveCallback) {
-		super(executor ? executor : (resolve) => {
+	constructor(executor: (resolve: (value: T["output"]) => void, reject: () => void) => ViewProxy<ViewsMap, T> | null, onUpdate: ViewOnUpdateCallback<ViewsMap, T>, onRemove: ViewOnRemoveCallback) {
+		super(executor ? executor : (resolve: (value: T["output"]) => void) => {
 			setTimeout(() => {
 				this.resolve = resolve;
 				// technically, because we're assigning this.resolve in a timeout, ViewProxy.done can be called synchronously before the timer is done.
