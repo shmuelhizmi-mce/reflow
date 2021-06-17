@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { createReadTransport } from "@mcesystems/reflow-story/src/transport";
-import { Socket } from "@mcesystems/reflow-story/src/transport/types";
-import { NodeTypes, StoryNode } from "@mcesystems/reflow-story/src/types";
+import { createReadTransport } from "@mcesystems/reflow-story/dist/transport";
+import { Socket } from "@mcesystems/reflow-story/dist/transport/types";
+import { NodeTypes, StoryNode } from "@mcesystems/reflow-story/dist/types";
 import { IChart, ILink, IPort } from "@mrblenny/react-flow-chart";
 
-const nodeXGap = 300;
-const nodeYGap = 150;
+const nodeXGap = 600;
+const nodeYGap = 350;
 
 type NodeTree = {
   self: StoryNode<NodeTypes>;
@@ -126,7 +126,7 @@ function mapNodeTreeToChart(
   );
 }
 
-export function useReader(socket: Socket): Pick<IChart, "links" | "nodes"> {
+export function useReader(socket: Socket) {
   const [nodes, setNodes] = useState<StoryNode<NodeTypes>[]>([]);
   const [chart, setChart] = useState<Pick<IChart, "links" | "nodes">>({
     links: {},
@@ -148,5 +148,5 @@ export function useReader(socket: Socket): Pick<IChart, "links" | "nodes"> {
     }
   }, [nodes]);
 
-  return chart;
+  return { ...chart, storyNodes: nodes };
 }

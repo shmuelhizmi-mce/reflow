@@ -37,7 +37,7 @@ server.on("connection", async (socket) => {
 
   await sleep(0.7);
 
-  const buttonDecision = mainFlow.decision("what button should I press");
+  const buttonDecision = mainFlow.decision("what button should I press ?");
 
   sleep(0.7).then(async () => {
     const redButton = buttonDecision.info("the BIG red button was chosen!");
