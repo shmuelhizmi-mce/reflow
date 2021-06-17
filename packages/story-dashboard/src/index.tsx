@@ -53,6 +53,7 @@ export function Dashboard(socket: Socket) {
           nodes,
           ...chartState,
         }}
+		config={{ readonly: true }}
         Components={{
           NodeInner: NodeInner,
           Node,

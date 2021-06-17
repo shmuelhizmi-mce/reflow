@@ -55,11 +55,11 @@ export function NodeBase(props: HandlerPropsType<NodeTypes>) {
         justifyContent: "center",
         flexDirection: "column",
         fontSize: 28,
-        fontWeight: 700,
-        color: "black",
-        border: `3px dotted ${getFlowColor(node.flowParentId)}`,
+        fontWeight: 500,
+        color: colorMap[node.data.color],
+        border: `3px solid ${getFlowColor(node.flowParentId)}`,
         // boxShadow: `inset ${colorMap[node.data.color]} 0px 7px 13px 0px`,
-        backgroundColor: colorMap[node.data.color],
+        backgroundColor: "#0D110D77",
       }}
     >
       <div style={{ padding: 25 }}>{node.data.message}</div>
